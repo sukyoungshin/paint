@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "none",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "ES6",
+    "jsx": "react",
+    "allowJs": false,
+    "moduleResolution": "node",
+    "types": ["react/next", "react-dom/next"]
+  }
+}
