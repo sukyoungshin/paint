@@ -1,13 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@pages/": ["src/pages/*"],
-      "@components/*": ["src/components/*"],
-      "@constants/": ["src/constants/*"],
-      "@styles/": ["src/styles/*"],
-      "@hooks/": ["src/hooks/*"]
-    },
+    "baseUrl": "./src",
     "module": "none",
     "noImplicitAny": true,
     "removeComments": true,
