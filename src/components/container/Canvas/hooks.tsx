@@ -64,7 +64,7 @@ export const useDrawingMode = () => {
 export const useBrushThickness = () => {
   const [lineWidth, setLineWidth] = useState(1);
   const changeBrushLineWidth = (e: InputRangeEvent) =>
-    setLineWidth(Number(e.target.value));
+    setLineWidth(e.target.valueAsNumber);
 
   return {
     lineWidth,
