@@ -13,12 +13,11 @@ import {
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   if (!canvasRef) throw new Error("Canvas is not available.");
+
   const { lineWidth, changeBrushLineWidth } = useBrushThickness();
   const { isFillMode, setFillMode, setDrawMode } = useDrawingMode();
-
   const { color, changeColorByColorPicker } = useColorPicker();
-  const { getCoordinate, startPaint, endPaint } = useCanvas(
-    canvasRef,
+  const { getPosition, startDrawing, continueDrawing, endDrawing } = useCanvas(
     lineWidth,
     color,
     isFillMode
@@ -27,13 +26,13 @@ const Canvas = () => {
   return (
     <>
       <CanvasElement
+        ref={canvasRef}
+        onMouseMove={getPosition}
+        onClick={startDrawing}
+        onMouseDown={continueDrawing}
+        onMouseUp={endDrawing}
         width="800"
         height="800"
-        ref={canvasRef}
-        onMouseMove={getCoordinate}
-        onMouseDown={startPaint}
-        onMouseUp={endPaint}
-        onMouseLeave={endPaint}
       >
         Your browser does not support HTML5 Canvas.
       </CanvasElement>

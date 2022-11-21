@@ -1,53 +1,58 @@
 import * as React from "react";
 import { useState } from "react";
-import {
-  InputRangeEvent,
-  CanvasMouseEvent,
-  CanvasRef
-} from "../../../common/type";
+import { InputRangeEvent, CanvasMouseEvent } from "../../../common/type";
 
 export const useCanvas = (
-  canvasRef: CanvasRef,
   lineWidth: number,
   color: string,
   isFillMode: boolean
 ) => {
   const [client, setClient] = useState({ clientX: 0, clientY: 0 });
-  const [isPainting, setIsPainting] = useState(false);
+  let isPainting = false;
 
-  const getCoordinate = (e: CanvasMouseEvent) =>
+  const getPosition = (e: CanvasMouseEvent) => {
     setClient({
       clientX: e.clientX,
       clientY: e.clientY
     });
+  };
 
-  React.useEffect(() => {
-    const context = canvasRef.current.getContext("2d");
-
-    if (!isPainting) {
-      context.beginPath();
-      context.moveTo(client.clientX, client.clientY);
-    }
+  const startDrawing = (e: CanvasMouseEvent) => {
+    const context = e.currentTarget.getContext("2d");
+    context.beginPath();
 
     if (isFillMode) {
       context.fillStyle = color;
+      context.fillRect(0, 0, 800, 800);
     } else {
+      context.moveTo(client.clientX, client.clientY);
       context.strokeStyle = color;
     }
     context.lineWidth = lineWidth;
-    context.lineTo(client.clientX, client.clientY);
 
-    if (isFillMode) {
-      context.fillRect(0, 0, 800, 800);
-    } else {
-      context.stroke();
-    }
-  }, [canvasRef, isPainting, color, lineWidth, client, isFillMode]);
+    isPainting = true;
+  };
+
+  const continueDrawing = (e: CanvasMouseEvent) => {
+    const context = e.currentTarget.getContext("2d");
+
+    context.lineTo(client.clientX, client.clientY);
+    context.stroke();
+  };
+
+  const endDrawing = (e: CanvasMouseEvent) => {
+    const context = e.currentTarget.getContext("2d");
+    if (isPainting) return;
+
+    context.closePath();
+    isPainting = false;
+  };
 
   return {
-    getCoordinate,
-    startPaint: () => setIsPainting(true),
-    endPaint: () => setIsPainting(false)
+    getPosition,
+    startDrawing,
+    continueDrawing,
+    endDrawing
   };
 };
 
