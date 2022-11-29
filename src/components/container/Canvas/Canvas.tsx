@@ -1,15 +1,20 @@
-import { ColorChangeButton, ColorPicker, DrawModeOptions } from "components";
+import {
+  BrushLineWidthOption,
+  CanvasClear,
+  ColorPickerOption,
+  DrawModeOptions
+} from "components";
 import * as React from "react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { brushColors } from "common/data";
 import {
   useColorPicker,
   useBrushThickness,
   useCanvas,
   useDrawingMode
 } from "./hooks";
-
+import { RiSave3Fill, RiShareFill } from "react-icons/ri";
+import { Canvas_Size, Icon_Size } from "common/style-utils";
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   if (!canvasRef) throw new Error("Canvas is not available.");
@@ -17,11 +22,13 @@ const Canvas = () => {
   const { lineWidth, changeBrushLineWidth } = useBrushThickness();
   const { isFillMode, setFillMode, setDrawMode } = useDrawingMode();
   const { color, changeColorByColorPicker } = useColorPicker();
-  const { getPosition, startDrawing, continueDrawing, endDrawing } = useCanvas(
-    lineWidth,
-    color,
-    isFillMode
-  );
+  const {
+    getPosition,
+    startDrawing,
+    continueDrawing,
+    endDrawing,
+    EraseDrawing
+  } = useCanvas(canvasRef, lineWidth, color, isFillMode);
 
   return (
     <>
@@ -31,46 +38,26 @@ const Canvas = () => {
         onClick={startDrawing}
         onMouseDown={continueDrawing}
         onMouseUp={endDrawing}
-        width="800"
-        height="800"
-      >
-        Your browser does not support HTML5 Canvas.
-      </CanvasElement>
-      <DrawModeOptions
-        isFillMode={isFillMode}
-        setFillMode={setFillMode}
-        setDrawMode={setDrawMode}
+        width={`${Canvas_Size.Width}`}
+        height={`${Canvas_Size.Height}`}
       />
-      <hr />
-      Color Change
-      <ColorPicker
-        brushColor={color}
-        changeColorByColorPicker={changeColorByColorPicker}
-      />
-      <ColorButtons>
-        {brushColors.map((brushColor) => {
-          return (
-            <ColorChangeButton
-              key={brushColor}
-              dataColor={brushColor}
-              backgroundColor={brushColor}
-            />
-          );
-        })}
-      </ColorButtons>
-      {!isFillMode && (
-        <>
-          Brush Thickness
-          <BrushLineWidthRange
-            type="range"
-            min="1"
-            max="10"
-            step="0.1"
-            value={lineWidth}
-            onChange={changeBrushLineWidth}
-          />
-        </>
-      )}
+      <OptionsWrapper>
+        <DrawModeOptions
+          isFillMode={isFillMode}
+          setFillMode={setFillMode}
+          setDrawMode={setDrawMode}
+        />
+        <ColorPickerOption
+          brushColor={color}
+          changeColorByColorPicker={changeColorByColorPicker}
+        />
+        <BrushLineWidthOption
+          lineWidth={lineWidth}
+          changeBrushLineWidth={changeBrushLineWidth}
+          isDisabled={isFillMode}
+        />
+        <CanvasClear EraseDrawing={EraseDrawing} />
+      </OptionsWrapper>
     </>
   );
 };
@@ -82,7 +69,11 @@ const CanvasElement = styled.canvas`
   height: 800px;
   border: 1px solid black;
 `;
-const BrushLineWidthRange = styled.input`
-  display: block;
+const OptionsWrapper = styled.div`
+  width: 800px;
+  height: 88px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
-const ColorButtons = styled.div``;

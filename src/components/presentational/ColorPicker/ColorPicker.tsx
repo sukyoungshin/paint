@@ -8,18 +8,24 @@ interface Props {
   changeColorByColorPicker: (e: InputRangeEvent) => void;
 }
 
-const ColorPicker = ({ brushColor, changeColorByColorPicker }: Props) => {
+const ColorPickerOption = ({ brushColor, changeColorByColorPicker }: Props) => {
   return (
-    <Picker
-      type="color"
-      value={brushColor}
-      onChange={changeColorByColorPicker}
-    />
+    <Container>
+      <p>Color Picker</p>
+      <Picker
+        type="color"
+        value={brushColor}
+        onChange={changeColorByColorPicker}
+      />
+    </Container>
   );
 };
 
-export default ColorPicker;
+export default ColorPickerOption;
 
+const Container = styled.div`
+  height: 100%;
+`;
 const Picker = styled.input`
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;

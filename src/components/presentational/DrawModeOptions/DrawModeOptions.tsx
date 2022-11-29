@@ -12,7 +12,7 @@ interface Props {
 const DrawModeOptions = ({ isFillMode, setFillMode, setDrawMode }: Props) => {
   return (
     <Container>
-      Painting Mode
+      <p>Painting Mode</p>
       <Button type="button" isActivated={isFillMode} onClick={setFillMode}>
         <RiPaintFill />
       </Button>
@@ -25,7 +25,11 @@ const DrawModeOptions = ({ isFillMode, setFillMode, setDrawMode }: Props) => {
 
 export default DrawModeOptions;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: fit-content;
+  height: 100%;
+  border: 1px solid black;
+`;
 const Button = styled.button<{
   isActivated: boolean;
 }>`

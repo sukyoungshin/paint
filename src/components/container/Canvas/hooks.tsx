@@ -1,8 +1,10 @@
+import { Canvas_Size } from "common/style-utils";
 import * as React from "react";
 import { useState } from "react";
 import { InputRangeEvent, CanvasMouseEvent } from "../../../common/type";
 
 export const useCanvas = (
+  canvasRef: any,
   lineWidth: number,
   color: string,
   isFillMode: boolean
@@ -23,7 +25,12 @@ export const useCanvas = (
 
     if (isFillMode) {
       context.fillStyle = color;
-      context.fillRect(0, 0, 800, 800);
+      context.fillRect(
+        0,
+        0,
+        Number(`${Canvas_Size.Width}`),
+        Number(`${Canvas_Size.Height}`)
+      );
     } else {
       context.moveTo(client.clientX, client.clientY);
       context.strokeStyle = color;
@@ -48,16 +55,22 @@ export const useCanvas = (
     isPainting = false;
   };
 
+  const EraseDrawing = () => {
+    const context = canvasRef.current.getContext("2d");
+    context.clearRect(0, 0, `${Canvas_Size.Width}`, `${Canvas_Size.Height}`);
+  };
+
   return {
     getPosition,
     startDrawing,
     continueDrawing,
-    endDrawing
+    endDrawing,
+    EraseDrawing
   };
 };
 
 export const useDrawingMode = () => {
-  const [isFillMode, setIsFillMode] = useState(false);
+  const [isFillMode, setIsFillMode] = useState(true);
 
   return {
     isFillMode,
