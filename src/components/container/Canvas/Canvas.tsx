@@ -17,26 +17,21 @@ import { RiSave3Fill, RiShareFill } from "react-icons/ri";
 import { Canvas_Size, Icon_Size } from "common/style-utils";
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const context = canvasRef.current?.getContext("2d");
   if (!canvasRef) throw new Error("Canvas is not available.");
 
   const { lineWidth, changeBrushLineWidth } = useBrushThickness();
-  const { isFillMode, setFillMode, setDrawMode } = useDrawingMode();
+  const { isFillMode, setFillMode, setStrokeMode } = useDrawingMode();
   const { color, changeColorByColorPicker } = useColorPicker();
-  const {
-    getPosition,
-    startDrawing,
-    continueDrawing,
-    endDrawing,
-    EraseDrawing
-  } = useCanvas(canvasRef, lineWidth, color, isFillMode);
+  const { getInitialPosition, continueDrawing, endDrawing, EraseDrawing } =
+    useCanvas(context, lineWidth, color, isFillMode);
 
   return (
     <>
       <CanvasElement
         ref={canvasRef}
-        onMouseMove={getPosition}
-        onClick={startDrawing}
-        onMouseDown={continueDrawing}
+        onMouseDown={getInitialPosition}
+        onMouseMove={continueDrawing}
         onMouseUp={endDrawing}
         width={`${Canvas_Size.Width}`}
         height={`${Canvas_Size.Height}`}
@@ -45,7 +40,7 @@ const Canvas = () => {
         <DrawModeOptions
           isFillMode={isFillMode}
           setFillMode={setFillMode}
-          setDrawMode={setDrawMode}
+          setStrokeMode={setStrokeMode}
         />
         <ColorPickerOption
           brushColor={color}

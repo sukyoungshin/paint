@@ -6,17 +6,17 @@ import { Icon_Size } from "common/style-utils";
 interface Props {
   isFillMode: boolean;
   setFillMode: () => void;
-  setDrawMode: () => void;
+  setStrokeMode: () => void;
 }
 
-const DrawModeOptions = ({ isFillMode, setFillMode, setDrawMode }: Props) => {
+const DrawModeOptions = ({ isFillMode, setFillMode, setStrokeMode }: Props) => {
   return (
     <Container>
       <p>Painting Mode</p>
       <Button type="button" isActivated={isFillMode} onClick={setFillMode}>
         <RiPaintFill />
       </Button>
-      <Button type="button" isActivated={!isFillMode} onClick={setDrawMode}>
+      <Button type="button" isActivated={!isFillMode} onClick={setStrokeMode}>
         <RiBrushFill />
       </Button>
     </Container>

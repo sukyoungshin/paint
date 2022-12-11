@@ -1,28 +1,17 @@
 import { Canvas_Size } from "common/style-utils";
 import * as React from "react";
 import { useState } from "react";
-import { InputRangeEvent, CanvasMouseEvent } from "../../../common/type";
+import { InputRangeEvent, CanvasMouseEvent } from "common/type";
 
 export const useCanvas = (
-  canvasRef: any,
+  context: CanvasRenderingContext2D,
   lineWidth: number,
   color: string,
   isFillMode: boolean
 ) => {
-  const [client, setClient] = useState({ clientX: 0, clientY: 0 });
-  let isPainting = false;
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const getPosition = (e: CanvasMouseEvent) => {
-    setClient({
-      clientX: e.clientX,
-      clientY: e.clientY
-    });
-  };
-
-  const startDrawing = (e: CanvasMouseEvent) => {
-    const context = e.currentTarget.getContext("2d");
-    context.beginPath();
-
+  const getInitialPosition = (e: CanvasMouseEvent) => {
     if (isFillMode) {
       context.fillStyle = color;
       context.fillRect(
@@ -31,38 +20,40 @@ export const useCanvas = (
         Number(`${Canvas_Size.Width}`),
         Number(`${Canvas_Size.Height}`)
       );
-    } else {
-      context.moveTo(client.clientX, client.clientY);
-      context.strokeStyle = color;
+      return;
     }
-    context.lineWidth = lineWidth;
 
-    isPainting = true;
+    setIsMouseDown(true);
+    context.beginPath();
+    context.moveTo(e.clientX, e.clientY);
   };
 
   const continueDrawing = (e: CanvasMouseEvent) => {
-    const context = e.currentTarget.getContext("2d");
+    if (!isMouseDown) return;
 
-    context.lineTo(client.clientX, client.clientY);
+    context.strokeStyle = color;
+    context.lineWidth = lineWidth;
+    context.lineTo(e.clientX, e.clientY);
     context.stroke();
   };
 
   const endDrawing = (e: CanvasMouseEvent) => {
-    const context = e.currentTarget.getContext("2d");
-    if (isPainting) return;
-
+    if (!context) return;
     context.closePath();
-    isPainting = false;
+    setIsMouseDown(false);
   };
 
   const EraseDrawing = () => {
-    const context = canvasRef.current.getContext("2d");
-    context.clearRect(0, 0, `${Canvas_Size.Width}`, `${Canvas_Size.Height}`);
+    context.clearRect(
+      0,
+      0,
+      Number(`${Canvas_Size.Width}`),
+      Number(`${Canvas_Size.Height}`)
+    );
   };
 
   return {
-    getPosition,
-    startDrawing,
+    getInitialPosition,
     continueDrawing,
     endDrawing,
     EraseDrawing
@@ -75,7 +66,7 @@ export const useDrawingMode = () => {
   return {
     isFillMode,
     setFillMode: () => setIsFillMode(true),
-    setDrawMode: () => setIsFillMode(false)
+    setStrokeMode: () => setIsFillMode(false)
   };
 };
 
