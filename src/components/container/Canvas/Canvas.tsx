@@ -1,6 +1,5 @@
 import {
   BrushLineWidthOption,
-  CanvasClear,
   ColorPickerOption,
   DrawModeOptions
 } from "components";
@@ -13,8 +12,8 @@ import {
   useCanvas,
   useDrawingMode
 } from "./hooks";
-import { RiSave3Fill, RiShareFill } from "react-icons/ri";
-import { Canvas_Size, Icon_Size } from "common/style-utils";
+import { Canvas_Size } from "common/style-utils";
+import { ButtonWithIcon } from "components/common";
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current?.getContext("2d");
@@ -28,6 +27,13 @@ const Canvas = () => {
 
   return (
     <>
+      <nav>
+        <ButtonWithIcon buttonType="erase" actionHandler={EraseDrawing} />
+        <ButtonWithIcon
+          buttonType="save"
+          actionHandler={() => console.log("저장하기")}
+        />
+      </nav>
       <CanvasElement
         ref={canvasRef}
         onMouseDown={getInitialPosition}
@@ -51,7 +57,6 @@ const Canvas = () => {
           changeBrushLineWidth={changeBrushLineWidth}
           isDisabled={isFillMode}
         />
-        <CanvasClear EraseDrawing={EraseDrawing} />
       </OptionsWrapper>
     </>
   );
