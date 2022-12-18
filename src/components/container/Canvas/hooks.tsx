@@ -86,30 +86,11 @@ export const useBrushThickness = () => {
   };
 };
 
-export const useColorPicker = () => {
-  const [color, setColor] = useState(Colors.Black);
-  const changeColorPicker = (e: TypeColorPicker) => {
-    if (typeof e === "string") {
-      setColor(e);
-    } else {
-      setColor(e.target.value);
-    }
-  };
-
-  return {
-    color,
-    changeColorPicker
-  };
-};
-
-export const useColorSwatches = (
-  changeColorPicker: (e: TypeColorPicker) => void
-) => {
+export const useColorSwatches = () => {
   const [swatchColor, setSwatchColor] = useState(Colors.Black);
   const changeSwatchColor = (e: React.SyntheticEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     setSwatchColor(e.target.dataset.color);
-    changeColorPicker(e.target.dataset.color);
   };
 
   return {

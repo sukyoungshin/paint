@@ -8,7 +8,6 @@ import React from "react";
 import { useRef } from "react";
 import styled from "styled-components";
 import {
-  useColorPicker,
   useBrushThickness,
   useCanvas,
   useDrawingMode,
@@ -24,9 +23,7 @@ const Canvas = () => {
 
   const { lineWidth, changeBrushLineWidth } = useBrushThickness();
   const { isFillMode, setFillMode, setStrokeMode } = useDrawingMode();
-  const { color: defaultColor, changeColorPicker } = useColorPicker();
-  const { swatchColor, changeSwatchColor } =
-    useColorSwatches(changeColorPicker);
+  const { swatchColor, changeSwatchColor } = useColorSwatches();
   const { getInitialPosition, continueDrawing, endDrawing, EraseDrawing } =
     useCanvas(context, lineWidth, swatchColor, isFillMode);
 
@@ -60,11 +57,7 @@ const Canvas = () => {
           />
         </li>
         <li>
-          <ColorPickerOption
-            brushColor={defaultColor}
-            changeColorPicker={changeColorPicker}
-            isDisabled={true}
-          />
+          <ColorPickerOption color={swatchColor} isDisabled={true} />
         </li>
         <li style={{ listStyle: "none" }}>
           {sampleColors.map((color) => (

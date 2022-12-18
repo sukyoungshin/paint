@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { InputRangeEvent } from "common/type";
 
 type Props = {
-  brushColor: string;
-  changeColorPicker: (e: InputRangeEvent) => void;
+  color: string;
+  changeColorPicker?: (e: InputRangeEvent) => void;
   isDisabled: boolean;
 };
 
 const ColorPickerOption = ({
-  brushColor,
+  color,
   changeColorPicker,
   isDisabled = true
 }: Props) => {
@@ -19,7 +19,7 @@ const ColorPickerOption = ({
       <span>Color Selection</span>{" "}
       <Picker
         type="color"
-        value={brushColor}
+        value={color}
         onChange={changeColorPicker}
         disabled={isDisabled}
       />
