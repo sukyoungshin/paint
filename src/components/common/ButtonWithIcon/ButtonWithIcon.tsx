@@ -1,4 +1,4 @@
-import { Icon_Size } from "common/style-utils";
+import { Colors, Icon_Size } from "common/style-utils";
 import React from "react";
 import {
   RiEraserFill,
@@ -28,6 +28,8 @@ const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: Props) => {
         return <RiPaintFill />;
       case "stroke":
         return <RiBrushFill />;
+      default:
+        return null;
     }
   };
 
@@ -46,18 +48,19 @@ const Button = styled.button<{
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;
 
-  color: black;
-  background-color: white;
+  color: ${Colors.Black};
+  background-color: ${Colors.White};
+  border: none;
 
   &:is(:focus, :active, :hover) {
-    color: white;
-    background-color: black;
+    color: ${Colors.White};
+    background-color: ${Colors.Black};
   }
 
   ${(props) =>
     props.isActivated &&
     css`
-      color: white;
-      background-color: black;
+      color: ${Colors.White};
+      background-color: ${Colors.Black};
     `}
 `;

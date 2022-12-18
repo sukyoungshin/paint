@@ -1,13 +1,15 @@
-export const brushColors = [
-  "#1abc9c",
-  "#3498db",
-  "#34495e",
-  "#27ae60",
-  "#8e44ad",
-  "#f1c40f",
-  "#e74c3c",
-  "#95a5a6",
-  "#d35400",
-  "#bdc3c7",
-  "#2ecc71"
+export const sampleColors = [
+  "#ef476f",
+  "#ffd166",
+  "#06d6a0",
+  "#118ab2",
+  "#758bfd",
+  "#f08080",
+  "#33658a",
+  "#86bbd8",
+  "#f6ae2d",
+  "#f26419",
+  "#073b4c",
+  "#f8f9fa",
+  "#212529"
 ];

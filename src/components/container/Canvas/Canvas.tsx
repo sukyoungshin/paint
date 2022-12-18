@@ -1,19 +1,22 @@
 import {
   BrushLineWidthOption,
+  ColorSwatches,
   ColorPickerOption,
   DrawModeOptions
 } from "components";
-import * as React from "react";
+import React from "react";
 import { useRef } from "react";
 import styled from "styled-components";
 import {
   useColorPicker,
   useBrushThickness,
   useCanvas,
-  useDrawingMode
+  useDrawingMode,
+  useColorSwatches
 } from "./hooks";
-import { Canvas_Size } from "common/style-utils";
+import { Canvas_Size, Colors } from "common/style-utils";
 import { ButtonWithIcon } from "components/common";
+import { sampleColors } from "common/data";
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current?.getContext("2d");
@@ -21,19 +24,25 @@ const Canvas = () => {
 
   const { lineWidth, changeBrushLineWidth } = useBrushThickness();
   const { isFillMode, setFillMode, setStrokeMode } = useDrawingMode();
-  const { color, changeColorByColorPicker } = useColorPicker();
+  const { color: defaultColor, changeColorPicker } = useColorPicker();
+  const { swatchColor, changeSwatchColor } =
+    useColorSwatches(changeColorPicker);
   const { getInitialPosition, continueDrawing, endDrawing, EraseDrawing } =
-    useCanvas(context, lineWidth, color, isFillMode);
+    useCanvas(context, lineWidth, swatchColor, isFillMode);
 
   return (
-    <>
-      <nav>
-        <ButtonWithIcon buttonType="erase" actionHandler={EraseDrawing} />
+    <Container>
+      <Header>
+        <h1>Painting</h1>
+        <ButtonWithIcon
+          buttonType="share"
+          actionHandler={() => console.log("공유하기")}
+        />
         <ButtonWithIcon
           buttonType="save"
           actionHandler={() => console.log("저장하기")}
         />
-      </nav>
+      </Header>
       <CanvasElement
         ref={canvasRef}
         onMouseDown={getInitialPosition}
@@ -42,38 +51,76 @@ const Canvas = () => {
         width={`${Canvas_Size.Width}`}
         height={`${Canvas_Size.Height}`}
       />
-      <OptionsWrapper>
-        <DrawModeOptions
-          isFillMode={isFillMode}
-          setFillMode={setFillMode}
-          setStrokeMode={setStrokeMode}
-        />
-        <ColorPickerOption
-          brushColor={color}
-          changeColorByColorPicker={changeColorByColorPicker}
-        />
-        <BrushLineWidthOption
-          lineWidth={lineWidth}
-          changeBrushLineWidth={changeBrushLineWidth}
-          isDisabled={isFillMode}
-        />
-      </OptionsWrapper>
-    </>
+      <MoreOptions>
+        <li>
+          <DrawModeOptions
+            isFillMode={isFillMode}
+            setFillMode={setFillMode}
+            setStrokeMode={setStrokeMode}
+          />
+        </li>
+        <li>
+          <ColorPickerOption
+            brushColor={defaultColor}
+            changeColorPicker={changeColorPicker}
+            isDisabled={true}
+          />
+        </li>
+        <li style={{ listStyle: "none" }}>
+          {sampleColors.map((color) => (
+            <ColorSwatches
+              key={color}
+              dataColor={color}
+              onClick={changeSwatchColor}
+            />
+          ))}
+        </li>
+        <li>
+          <BrushLineWidthOption
+            lineWidth={lineWidth}
+            changeBrushLineWidth={changeBrushLineWidth}
+            isDisabled={isFillMode}
+          />
+        </li>
+        <li>
+          Reset{" "}
+          <ButtonWithIcon buttonType="erase" actionHandler={EraseDrawing} />
+        </li>
+      </MoreOptions>
+    </Container>
   );
 };
 
 export default Canvas;
 
-const CanvasElement = styled.canvas`
+const Container = styled.div`
   width: 800px;
-  height: 800px;
-  border: 1px solid black;
 `;
-const OptionsWrapper = styled.div`
-  width: 800px;
-  height: 88px;
+const CanvasElement = styled.canvas`
+  width: 100%;
+  height: 800px;
+  border: 1px solid ${Colors.Black};
+`;
 
+const Header = styled.header`
+  padding: 0 20px;
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  background-color: ${Colors.LightWhite};
+
+  h1 {
+    display: inline-block;
+    margin-right: auto;
+  }
+`;
+
+const MoreOptions = styled.ul`
+  width: 100%;
+  background-color: ${Colors.LightWhite};
+
+  li {
+    height: 40px;
+    line-height: 40px;
+  }
 `;

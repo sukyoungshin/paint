@@ -1,19 +1,23 @@
-import { Canvas_Size } from "common/style-utils";
-import * as React from "react";
+import { Canvas_Size, Colors } from "common/style-utils";
+import React from "react";
 import { useState } from "react";
-import { InputRangeEvent, CanvasMouseEvent } from "common/type";
+import {
+  InputRangeEvent,
+  CanvasMouseEvent,
+  TypeColorPicker
+} from "common/type";
 
 export const useCanvas = (
   context: CanvasRenderingContext2D,
   lineWidth: number,
-  color: string,
+  swatchColor: string,
   isFillMode: boolean
 ) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const getInitialPosition = (e: CanvasMouseEvent) => {
     if (isFillMode) {
-      context.fillStyle = color;
+      context.fillStyle = swatchColor;
       context.fillRect(
         0,
         0,
@@ -31,19 +35,20 @@ export const useCanvas = (
   const continueDrawing = (e: CanvasMouseEvent) => {
     if (!isMouseDown) return;
 
-    context.strokeStyle = color;
+    context.strokeStyle = swatchColor;
     context.lineWidth = lineWidth;
     context.lineTo(e.clientX, e.clientY);
     context.stroke();
   };
 
-  const endDrawing = (e: CanvasMouseEvent) => {
+  const endDrawing = () => {
     if (!context) return;
     context.closePath();
     setIsMouseDown(false);
   };
 
   const EraseDrawing = () => {
+    if (!context) return;
     context.clearRect(
       0,
       0,
@@ -61,7 +66,7 @@ export const useCanvas = (
 };
 
 export const useDrawingMode = () => {
-  const [isFillMode, setIsFillMode] = useState(true);
+  const [isFillMode, setIsFillMode] = useState(false);
 
   return {
     isFillMode,
@@ -82,8 +87,8 @@ export const useBrushThickness = () => {
 };
 
 export const useColorPicker = () => {
-  const [color, setColor] = useState("#000000");
-  const changeColorByColorPicker = (e: InputRangeEvent | string) => {
+  const [color, setColor] = useState(Colors.Black);
+  const changeColorPicker = (e: TypeColorPicker) => {
     if (typeof e === "string") {
       setColor(e);
     } else {
@@ -93,19 +98,22 @@ export const useColorPicker = () => {
 
   return {
     color,
-    changeColorByColorPicker
+    changeColorPicker
   };
 };
 
-export const useColorButton = () => {
-  const [color, setColor] = useState("#000000");
-  const changeColorByButton = (e: React.SyntheticEvent) => {
+export const useColorSwatches = (
+  changeColorPicker: (e: TypeColorPicker) => void
+) => {
+  const [swatchColor, setSwatchColor] = useState(Colors.Black);
+  const changeSwatchColor = (e: React.SyntheticEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
-    setColor(e.target.dataset.color);
+    setSwatchColor(e.target.dataset.color);
+    changeColorPicker(e.target.dataset.color);
   };
 
   return {
-    color,
-    changeColorByButton
+    swatchColor,
+    changeSwatchColor
   };
 };

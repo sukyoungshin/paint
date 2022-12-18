@@ -1,17 +1,16 @@
-import * as React from "react";
-import styled from "styled-components";
+import React from "react";
 import { ButtonWithIcon } from "components/common";
 
-interface Props {
+type Props = {
   isFillMode: boolean;
   setFillMode: () => void;
   setStrokeMode: () => void;
-}
+};
 
 const DrawModeOptions = ({ isFillMode, setFillMode, setStrokeMode }: Props) => {
   return (
-    <Container>
-      <p>Painting Mode</p>
+    <>
+      <span>Painting Mode</span>{" "}
       <ButtonWithIcon
         buttonType="fill"
         isActivated={isFillMode}
@@ -22,14 +21,8 @@ const DrawModeOptions = ({ isFillMode, setFillMode, setStrokeMode }: Props) => {
         isActivated={!isFillMode}
         actionHandler={setStrokeMode}
       />
-    </Container>
+    </>
   );
 };
 
 export default DrawModeOptions;
-
-const Container = styled.div`
-  width: fit-content;
-  height: 100%;
-  border: 1px solid black;
-`;
