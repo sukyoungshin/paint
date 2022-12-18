@@ -10,6 +10,7 @@
     "jsx": "react",
     "allowJs": false,
     "moduleResolution": "node",
-    "types": ["react/next", "react-dom/next"]
+    "types": ["react/next", "react-dom/next"],
+    "esModuleInterop": true
   }
 }
