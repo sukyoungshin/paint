@@ -1,4 +1,4 @@
-import { InputRangeEvent } from "common/type";
+import { InputRangeEvent } from "utils/type";
 import React from "react";
 
 type Props = {

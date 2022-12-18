@@ -1,11 +1,7 @@
-import { Canvas_Size, Colors } from "common/style-utils";
+import { Canvas_Size, Colors } from "utils/style-utils";
 import React from "react";
 import { useState } from "react";
-import {
-  InputRangeEvent,
-  CanvasMouseEvent,
-  TypeColorPicker
-} from "common/type";
+import { InputRangeEvent, CanvasMouseEvent } from "utils/type";
 
 export const useCanvas = (
   context: CanvasRenderingContext2D,

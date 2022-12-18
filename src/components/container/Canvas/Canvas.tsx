@@ -4,8 +4,7 @@ import {
   ColorPickerOption,
   DrawModeOptions
 } from "components";
-import React from "react";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import {
   useBrushThickness,
@@ -13,9 +12,9 @@ import {
   useDrawingMode,
   useColorSwatches
 } from "./hooks";
-import { Canvas_Size, Colors } from "common/style-utils";
+import { Canvas_Size, Colors } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
-import { sampleColors } from "common/data";
+import { sampleColors } from "utils/data";
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current?.getContext("2d");

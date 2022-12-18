@@ -1,4 +1,4 @@
-import { Colors, Icon_Size } from "common/style-utils";
+import { Icon_Size, Colors } from "utils/style-utils";
 import React from "react";
 import {
   RiEraserFill,

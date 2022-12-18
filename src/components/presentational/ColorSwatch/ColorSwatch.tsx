@@ -1,4 +1,4 @@
-import { Icon_Size } from "common/style-utils";
+import { Icon_Size } from "utils/style-utils";
 import React from "react";
 import styled from "styled-components";
 
