@@ -97,6 +97,7 @@ const CanvasElement = styled.canvas`
 const Header = styled.header`
   padding: 0 20px;
   width: 100%;
+  height: 85px;
   display: flex;
   align-items: center;
   background-color: ${Colors.LightWhite};

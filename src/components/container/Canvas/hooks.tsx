@@ -33,7 +33,7 @@ export const useCanvas = (
 
     context.strokeStyle = swatchColor;
     context.lineWidth = lineWidth;
-    context.lineTo(e.clientX, e.clientY);
+    context.lineTo(e.clientX, e.clientY - 85);
     context.stroke();
   };
 
