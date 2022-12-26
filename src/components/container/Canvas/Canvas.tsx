@@ -11,7 +11,7 @@ import {
   useCanvas,
   useDrawingMode,
   useColorSwatches
-} from "./hooks";
+} from "components/hooks/useCanvas";
 import { Canvas_Size, Colors } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
 import { sampleColors } from "utils/data";
