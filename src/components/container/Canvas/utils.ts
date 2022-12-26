@@ -10,3 +10,11 @@ export const downloadImage = () => {
   $a.click();
   $canvas.removeChild($a);
 };
+
+export const shareCurrentPage = () => {
+  window.navigator.share({
+    url: window.location.href,
+    text: "직접 그린 그림을 공유할 수 있어요 🎨",
+    title: "paint app"
+  });
+};
