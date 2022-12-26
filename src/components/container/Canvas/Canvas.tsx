@@ -15,7 +15,7 @@ import {
 import { Canvas_Size, Colors } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
 import { sampleColors } from "utils/data";
-import { downloadImage } from "./utils";
+import { downloadImage, shareCurrentPage } from "./utils";
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current?.getContext("2d");
@@ -31,10 +31,7 @@ const Canvas = () => {
     <Container>
       <Header>
         <h1>Painting</h1>
-        <ButtonWithIcon
-          buttonType="share"
-          actionHandler={() => console.log("공유하기")}
-        />
+        <ButtonWithIcon buttonType="share" actionHandler={shareCurrentPage} />
         <ButtonWithIcon buttonType="save" actionHandler={downloadImage} />
       </Header>
       <CanvasElement
