@@ -26,10 +26,10 @@ const Button = styled.button<{
   margin-top: 4px;
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;
-  ${(props) =>
-    props.backgroundColor &&
+  ${({ backgroundColor }) =>
+    backgroundColor &&
     `
-      background-color: ${props.backgroundColor};
+      background-color: ${backgroundColor};
   `}
   border: none;
 `;

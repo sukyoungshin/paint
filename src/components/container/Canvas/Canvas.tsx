@@ -16,6 +16,7 @@ import { Canvas_Size, Colors } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
 import { sampleColors } from "utils/data";
 import { downloadImage, shareCurrentPage } from "./utils";
+
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current?.getContext("2d");
@@ -30,7 +31,7 @@ const Canvas = () => {
   return (
     <Container>
       <Header>
-        <h1>Painting</h1>
+        <Title>Painting</Title>
         <ButtonWithIcon buttonType="share" actionHandler={shareCurrentPage} />
         <ButtonWithIcon buttonType="save" actionHandler={downloadImage} />
       </Header>
@@ -44,17 +45,17 @@ const Canvas = () => {
         height={`${Canvas_Size.Height}`}
       />
       <MoreOptions>
-        <li>
+        <OptionList>
           <DrawModeOptions
             isFillMode={isFillMode}
             setFillMode={setFillMode}
             setStrokeMode={setStrokeMode}
           />
-        </li>
-        <li>
+        </OptionList>
+        <OptionList>
           <ColorPickerOption color={swatchColor} isDisabled={true} />
-        </li>
-        <li style={{ listStyle: "none" }}>
+        </OptionList>
+        <OptionList style={{ listStyle: "none" }}>
           {sampleColors.map((color) => (
             <ColorSwatches
               key={color}
@@ -62,18 +63,18 @@ const Canvas = () => {
               onClick={changeSwatchColor}
             />
           ))}
-        </li>
-        <li>
+        </OptionList>
+        <OptionList>
           <BrushLineWidthOption
             lineWidth={lineWidth}
             changeBrushLineWidth={changeBrushLineWidth}
             isDisabled={isFillMode}
           />
-        </li>
-        <li>
+        </OptionList>
+        <OptionList>
           Reset{" "}
           <ButtonWithIcon buttonType="erase" actionHandler={EraseDrawing} />
-        </li>
+        </OptionList>
       </MoreOptions>
     </Container>
   );
@@ -97,19 +98,18 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   background-color: ${Colors.LightWhite};
-
-  h1 {
-    display: inline-block;
-    margin-right: auto;
-  }
 `;
+
+const Title = styled.h1`
+  display: inline-block;
+  margin-right: auto;
+`
 
 const MoreOptions = styled.ul`
   width: 100%;
   background-color: ${Colors.LightWhite};
-
-  li {
-    height: 40px;
-    line-height: 40px;
-  }
+`;
+const OptionList = styled.li`
+  height: 40px;
+  line-height: 40px;
 `;
