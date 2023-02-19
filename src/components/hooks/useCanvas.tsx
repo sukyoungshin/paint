@@ -24,8 +24,8 @@ export const useCanvas = (
     }
 
     setIsMouseDown(true);
-    context.beginPath();
-    context.moveTo(e.clientX, e.clientY - 85);
+    context?.beginPath();
+    context?.moveTo(e.clientX, e.clientY - 85);
   };
 
   const continueDrawing = (e: CanvasMouseEvent) => {
