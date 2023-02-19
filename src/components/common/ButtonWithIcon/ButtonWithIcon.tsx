@@ -7,7 +7,7 @@ import {
   RiPaintFill,
   RiBrushFill
 } from "react-icons/ri";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 type Props = {
   buttonType: string;
@@ -15,23 +15,26 @@ type Props = {
   isActivated?: boolean;
 };
 
+const getIcon = (buttonType: Props['buttonType']) => {
+  switch (buttonType) {
+    case "erase":
+      return RiEraserFill;
+    case "save":
+      return RiSave3Fill;
+    case "share":
+      return RiShareFill;
+    case "fill":
+      return RiPaintFill;
+    case "stroke":
+      return RiBrushFill;
+    default:
+      return null;
+  }
+};
+
+
 const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: Props) => {
-  const Icon = () => {
-    switch (buttonType) {
-      case "erase":
-        return <RiEraserFill />;
-      case "save":
-        return <RiSave3Fill />;
-      case "share":
-        return <RiShareFill />;
-      case "fill":
-        return <RiPaintFill />;
-      case "stroke":
-        return <RiBrushFill />;
-      default:
-        return null;
-    }
-  };
+  const Icon = getIcon(buttonType);
 
   return (
     <Button type="button" onClick={actionHandler} isActivated={isActivated}>
@@ -57,9 +60,9 @@ const Button = styled.button<{
     background-color: ${Colors.Black};
   }
 
-  ${(props) =>
-    props.isActivated &&
-    css`
+  ${({ isActivated }) =>
+    isActivated &&
+    `
       color: ${Colors.White};
       background-color: ${Colors.Black};
     `}
