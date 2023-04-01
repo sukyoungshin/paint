@@ -31,5 +31,4 @@ const Button = styled.button<{
     `
       background-color: ${backgroundColor};
   `}
-  border: none;
 `;

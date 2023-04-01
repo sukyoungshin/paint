@@ -82,12 +82,13 @@ const Canvas = () => {
 
 export default Canvas;
 
+const DefaultSize = '800px';
 const Container = styled.div`
-  width: 800px;
+  width: ${DefaultSize};
 `;
 const CanvasElement = styled.canvas`
   width: 100%;
-  height: 800px;
+  height: ${DefaultSize};
   border: 1px solid ${Colors.Black};
 `;
 

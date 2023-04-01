@@ -28,7 +28,7 @@ const getIcon = (buttonType: Props['buttonType']) => {
     case "stroke":
       return RiBrushFill;
     default:
-      return null;
+      return false;
   }
 };
 
@@ -38,7 +38,7 @@ const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: Props) => {
 
   return (
     <Button type="button" onClick={actionHandler} isActivated={isActivated}>
-      <Icon />
+      {Icon && <Icon />}
     </Button>
   );
 };
@@ -53,7 +53,6 @@ const Button = styled.button<{
 
   color: ${Colors.Black};
   background-color: ${Colors.White};
-  border: none;
 
   &:is(:focus, :active, :hover) {
     color: ${Colors.White};
