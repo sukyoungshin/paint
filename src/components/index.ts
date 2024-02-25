@@ -1,2 +1,4 @@
-export * from './ButtonWithIcon/ButtonWithIcon'
-export * from './Canvas/Canvas'
+export * from './ButtonWithIcon'
+export * from './Main'
+export * from './Header'
+export * from './Canvas'
