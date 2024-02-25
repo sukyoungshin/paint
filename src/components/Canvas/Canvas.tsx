@@ -6,9 +6,15 @@ import {
   useDrawingMode,
   useColorSwatches,
 } from "components/hooks/useCanvas";
-import { Canvas_Size, Colors, Icon_Size, swatchColors } from "utils/style-utils";
+import {
+  Canvas_Size,
+  Colors,
+  Icon_Size,
+  swatchColors,
+} from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
 import { downloadImage, shareCurrentPage } from "./utils";
+import { BackgroundColorType } from "utils/type";
 
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -23,11 +29,7 @@ const Canvas = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Painting</Title>
-        <ButtonWithIcon buttonType="share" actionHandler={shareCurrentPage} />
-        <ButtonWithIcon buttonType="save" actionHandler={downloadImage} />
-      </Header>
+      <HeaderComponent />
       <CanvasElement
         id="canvas"
         ref={canvasRef}
@@ -88,6 +90,18 @@ const Canvas = () => {
 
 export default Canvas;
 
+const HeaderComponent = () => {
+  return (
+    <>
+      <Header>
+        <Title>Painting</Title>
+        <ButtonWithIcon buttonType="share" actionHandler={shareCurrentPage} />
+        <ButtonWithIcon buttonType="save" actionHandler={downloadImage} />
+      </Header>
+    </>
+  );
+};
+
 const DefaultSize = "800px";
 const Container = styled.div`
   width: ${DefaultSize};
@@ -124,9 +138,8 @@ const Picker = styled.input`
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;
 `;
-const ColorSwatchButton = styled.button<{
-  backgroundColor: string;
-}>`
+
+const ColorSwatchButton = styled.button<BackgroundColorType>`
   margin-top: 4px;
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;
