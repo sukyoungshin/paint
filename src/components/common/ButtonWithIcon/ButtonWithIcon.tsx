@@ -5,7 +5,7 @@ import {
   RiSave3Fill,
   RiShareFill,
   RiPaintFill,
-  RiBrushFill
+  RiBrushFill,
 } from "react-icons/ri";
 import styled from "styled-components";
 
@@ -15,10 +15,10 @@ type BasePropsType = {
 };
 type ButtonPropsType = {
   isActivated?: boolean;
-}
+};
 export type ButtonWithIconPropsType = BasePropsType & ButtonPropsType;
 
-const getIcon = (buttonType: ButtonWithIconPropsType['buttonType']) => {
+const getButtonIcon = (buttonType: ButtonWithIconPropsType["buttonType"]) => {
   switch (buttonType) {
     case "erase":
       return RiEraserFill;
@@ -35,9 +35,12 @@ const getIcon = (buttonType: ButtonWithIconPropsType['buttonType']) => {
   }
 };
 
-
-const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: ButtonWithIconPropsType) => {
-  const Icon = getIcon(buttonType);
+const ButtonWithIcon = ({
+  buttonType,
+  actionHandler,
+  isActivated,
+}: ButtonWithIconPropsType) => {
+  const Icon = getButtonIcon(buttonType);
 
   return (
     <Button type="button" onClick={actionHandler} isActivated={isActivated}>
