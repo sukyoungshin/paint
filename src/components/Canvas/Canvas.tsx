@@ -6,9 +6,8 @@ import {
   useDrawingMode,
   useColorSwatches,
 } from "components/hooks/useCanvas";
-import { Canvas_Size, Colors, Icon_Size } from "utils/style-utils";
+import { Canvas_Size, Colors, Icon_Size, swatchColors } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
-import { sampleColors } from "utils/data";
 import { downloadImage, shareCurrentPage } from "./utils";
 
 const Canvas = () => {
@@ -57,7 +56,7 @@ const Canvas = () => {
           <Picker type="color" value={swatchColor} disabled={true} />
         </OptionList>
         <OptionList style={{ listStyle: "none" }}>
-          {sampleColors.map((color) => (
+          {swatchColors.map((color) => (
             <ColorSwatchButton
               type="button"
               data-color={color}
