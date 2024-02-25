@@ -1,4 +1,4 @@
-import { ButtonWithIconPropsType } from "components/common/ButtonWithIcon/ButtonWithIcon";
+import { ButtonWithIconPropsType } from "components";
 import {
   RiEraserFill,
   RiSave3Fill,

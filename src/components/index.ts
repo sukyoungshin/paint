@@ -1,1 +1,2 @@
-export * from "./common";
+export * from './ButtonWithIcon/ButtonWithIcon'
+export * from './Canvas/Canvas'
