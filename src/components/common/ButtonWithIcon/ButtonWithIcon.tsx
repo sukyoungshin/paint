@@ -1,12 +1,5 @@
-import { Icon_Size, Colors } from "utils/style-utils";
+import { Icon_Size, Colors, getButtonIcon } from "utils/style-utils";
 import React from "react";
-import {
-  RiEraserFill,
-  RiSave3Fill,
-  RiShareFill,
-  RiPaintFill,
-  RiBrushFill,
-} from "react-icons/ri";
 import styled from "styled-components";
 
 type BasePropsType = {
@@ -17,22 +10,6 @@ type ButtonPropsType = {
   isActivated?: boolean;
 };
 export type ButtonWithIconPropsType = BasePropsType & ButtonPropsType;
-
-const buttonTypeAndIcon = {
-  erase: RiEraserFill,
-  save: RiSave3Fill,
-  share: RiShareFill,
-  fill: RiPaintFill,
-  stroke: RiBrushFill,
-};
-
-const getButtonIcon = (buttonType: ButtonWithIconPropsType["buttonType"]) => {
-  for (let i = 0; i < Object.entries(buttonTypeAndIcon).length; i++) {
-    const [key, value] = Object.entries(buttonTypeAndIcon)[i];
-
-    return key === buttonType ? value : null;
-  }
-};
 
 const ButtonWithIcon = ({
   buttonType,
