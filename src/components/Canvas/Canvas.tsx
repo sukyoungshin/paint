@@ -13,7 +13,7 @@ import {
   swatchColors,
 } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
-import { downloadImage, shareCurrentPage } from "./utils";
+import { downloadImage, shareCurrentPage } from "../../utils/utils";
 import { BackgroundColorType } from "utils/type";
 
 const Canvas = () => {
