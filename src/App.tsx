@@ -1,8 +1,8 @@
+import { Main } from "components";
 import * as React from "react";
-import { Canvas } from "./components";
 
 const App = () => {
-  return <Canvas />;
+  return <Main />;
 };
 
 export default App;

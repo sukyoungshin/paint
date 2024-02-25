@@ -6,7 +6,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "target": "ES2017",
+    "target": "ES6",
     "jsx": "react",
     "allowJs": false,
     "moduleResolution": "node",
