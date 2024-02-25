@@ -1,18 +1,12 @@
-import {
-  BrushLineWidthOption,
-  ColorSwatches,
-  ColorPickerOption,
-  DrawModeOptions
-} from "components";
 import React, { useRef } from "react";
 import styled from "styled-components";
 import {
   useBrushThickness,
   useCanvas,
   useDrawingMode,
-  useColorSwatches
+  useColorSwatches,
 } from "components/hooks/useCanvas";
-import { Canvas_Size, Colors } from "utils/style-utils";
+import { Canvas_Size, Colors, Icon_Size } from "utils/style-utils";
 import { ButtonWithIcon } from "components/common";
 import { sampleColors } from "utils/data";
 import { downloadImage, shareCurrentPage } from "./utils";
@@ -46,29 +40,42 @@ const Canvas = () => {
       />
       <MoreOptions>
         <OptionList>
-          <DrawModeOptions
-            isFillMode={isFillMode}
-            setFillMode={setFillMode}
-            setStrokeMode={setStrokeMode}
+          <span>Painting Mode</span>{" "}
+          <ButtonWithIcon
+            buttonType="fill"
+            isActivated={isFillMode}
+            actionHandler={setFillMode}
+          />
+          <ButtonWithIcon
+            buttonType="stroke"
+            isActivated={!isFillMode}
+            actionHandler={setStrokeMode}
           />
         </OptionList>
         <OptionList>
-          <ColorPickerOption color={swatchColor} isDisabled={true} />
+          <span>Color Selection</span>{" "}
+          <Picker type="color" value={swatchColor} disabled={true} />
         </OptionList>
         <OptionList style={{ listStyle: "none" }}>
           {sampleColors.map((color) => (
-            <ColorSwatches
-              key={color}
-              dataColor={color}
+            <ColorSwatchButton
+              type="button"
+              data-color={color}
+              backgroundColor={color}
               onClick={changeSwatchColor}
             />
           ))}
         </OptionList>
         <OptionList>
-          <BrushLineWidthOption
-            lineWidth={lineWidth}
-            changeBrushLineWidth={changeBrushLineWidth}
-            isDisabled={isFillMode}
+          <span>Brush Thickness</span>{" "}
+          <input
+            type="range"
+            min="1"
+            max="10"
+            step="0.1"
+            value={lineWidth}
+            onChange={changeBrushLineWidth}
+            disabled={isFillMode}
           />
         </OptionList>
         <OptionList>
@@ -82,7 +89,7 @@ const Canvas = () => {
 
 export default Canvas;
 
-const DefaultSize = '800px';
+const DefaultSize = "800px";
 const Container = styled.div`
   width: ${DefaultSize};
 `;
@@ -104,7 +111,7 @@ const Header = styled.header`
 const Title = styled.h1`
   display: inline-block;
   margin-right: auto;
-`
+`;
 
 const MoreOptions = styled.ul`
   width: 100%;
@@ -113,4 +120,20 @@ const MoreOptions = styled.ul`
 const OptionList = styled.li`
   height: 40px;
   line-height: 40px;
+`;
+const Picker = styled.input`
+  width: ${Icon_Size.Small}px;
+  height: ${Icon_Size.Small}px;
+`;
+const ColorSwatchButton = styled.button<{
+  backgroundColor: string;
+}>`
+  margin-top: 4px;
+  width: ${Icon_Size.Small}px;
+  height: ${Icon_Size.Small}px;
+  ${({ backgroundColor }) =>
+    backgroundColor &&
+    `
+      background-color: ${backgroundColor};
+  `}
 `;
