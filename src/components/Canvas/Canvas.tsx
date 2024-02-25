@@ -36,5 +36,4 @@ export default CanvasComponent;
 const Container = styled.div`
   margin-bottom: 8px;
   border: 1px solid ${Colors.Black};
-  box-sizing: border-box;
 `;
