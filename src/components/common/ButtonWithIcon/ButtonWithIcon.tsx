@@ -9,13 +9,16 @@ import {
 } from "react-icons/ri";
 import styled from "styled-components";
 
-type Props = {
+type BasePropsType = {
   buttonType: string;
   actionHandler: () => void;
-  isActivated?: boolean;
 };
+type ButtonPropsType = {
+  isActivated?: boolean;
+}
+export type ButtonWithIconPropsType = BasePropsType & ButtonPropsType;
 
-const getIcon = (buttonType: Props['buttonType']) => {
+const getIcon = (buttonType: ButtonWithIconPropsType['buttonType']) => {
   switch (buttonType) {
     case "erase":
       return RiEraserFill;
@@ -33,7 +36,7 @@ const getIcon = (buttonType: Props['buttonType']) => {
 };
 
 
-const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: Props) => {
+const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: ButtonWithIconPropsType) => {
   const Icon = getIcon(buttonType);
 
   return (
@@ -45,12 +48,9 @@ const ButtonWithIcon = ({ buttonType, actionHandler, isActivated }: Props) => {
 
 export default ButtonWithIcon;
 
-const Button = styled.button<{
-  isActivated: boolean;
-}>`
+const Button = styled.button<ButtonPropsType>`
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;
-
   color: ${Colors.Black};
   background-color: ${Colors.White};
 
