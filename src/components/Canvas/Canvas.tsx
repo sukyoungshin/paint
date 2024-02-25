@@ -12,9 +12,9 @@ import {
   Icon_Size,
   swatchColors,
 } from "utils/style-utils";
-import { ButtonWithIcon } from "components/common";
 import { downloadImage, shareCurrentPage } from "../../utils/utils";
 import { BackgroundColorType } from "utils/type";
+import { ButtonWithIcon } from "components/ButtonWithIcon";
 
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -1,5 +1,5 @@
+import { Canvas } from "components/Canvas";
 import * as React from "react";
-import { Canvas } from "./components";
 
 const App = () => {
   return <Canvas />;
