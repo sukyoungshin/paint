@@ -18,20 +18,19 @@ type ButtonPropsType = {
 };
 export type ButtonWithIconPropsType = BasePropsType & ButtonPropsType;
 
+const buttonTypeAndIcon = {
+  erase: RiEraserFill,
+  save: RiSave3Fill,
+  share: RiShareFill,
+  fill: RiPaintFill,
+  stroke: RiBrushFill,
+};
+
 const getButtonIcon = (buttonType: ButtonWithIconPropsType["buttonType"]) => {
-  switch (buttonType) {
-    case "erase":
-      return RiEraserFill;
-    case "save":
-      return RiSave3Fill;
-    case "share":
-      return RiShareFill;
-    case "fill":
-      return RiPaintFill;
-    case "stroke":
-      return RiBrushFill;
-    default:
-      return false;
+  for (let i = 0; i < Object.entries(buttonTypeAndIcon).length; i++) {
+    const [key, value] = Object.entries(buttonTypeAndIcon)[i];
+
+    return key === buttonType ? value : null;
   }
 };
 
