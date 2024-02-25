@@ -1,4 +1,5 @@
-import { ButtonWithIconPropsType } from "components";
+
+import { ButtonWithIconPropsType } from "components/ButtonWithIcon/ButtonWithIcon";
 import { IconType } from "react-icons/lib";
 import {
   RiEraserFill,
@@ -7,6 +8,9 @@ import {
   RiPaintFill,
   RiBrushFill,
 } from "react-icons/ri";
+
+// 공통 너비 & 높이
+export const DefaultSize = "800px";
 
 export const swatchColors = [
   "#ef476f",

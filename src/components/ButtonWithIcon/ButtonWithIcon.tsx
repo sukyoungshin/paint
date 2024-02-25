@@ -28,6 +28,9 @@ const ButtonWithIcon = ({
 export default ButtonWithIcon;
 
 const Button = styled.button<ButtonPropsType>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: ${Icon_Size.Small}px;
   height: ${Icon_Size.Small}px;
   color: ${Colors.Black};
